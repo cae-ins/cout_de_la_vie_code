@@ -1,0 +1,308 @@
+{\rtf1\ansi\deff0 {\fonttbl{\f0\fnil Garamond;}}
+{\info {\author .}{\company .}{\title .}}
+\deflang1033\plain\fs20
+{\footer\pard\qc\plain\f0\fs20\chpgn\par}
+{
+{\b\qc\line Mean estimation                            Number of obs = 273 }{\par}
+{\trowd\trgaph108\trleft-108
+\row}
+{\trowd\trgaph108\trleft-108
+\cellx1500
+\fs20\pard\intbl\ql {Mean}\cell
+\cellx2700
+\fs20\pard\intbl\ql {Std.}\cell
+\cellx3900
+\fs20\pard\intbl\ql {err.}\cell
+\cellx5100
+\fs20\pard\intbl\ql {[95%}\cell
+\cellx6300
+\fs20\pard\intbl\ql {conf.}\cell
+\cellx7500
+\fs20\pard\intbl\ql {interval]}\cell
+\row}
+{\trowd\trgaph108\trleft-108
+\clbrdrt\brdrw10\brdrs \cellx1500
+\fs20\pard\intbl\ql {score_fin}\cell
+\clbrdrt\brdrw10\brdrs \cellx2700
+\fs20\pard\intbl\ql {-.2783883}\cell
+\clbrdrt\brdrw10\brdrs \cellx3900
+\fs20\pard\intbl\ql {.047401}\cell
+\clbrdrt\brdrw10\brdrs \cellx5100
+\fs20\pard\intbl\ql {-.3717078}\cell
+\clbrdrt\brdrw10\brdrs \cellx6300
+\fs20\pard\intbl\ql {-.1850688}\cell
+\row}
+{\trowd\trgaph108\trleft-108
+\cellx1500
+\fs20\pard\intbl\ql {bscore_fin}\cell
+\cellx2700
+\fs20\pard\intbl\ql {-.2087912}\cell
+\cellx3900
+\fs20\pard\intbl\ql {.0331495}\cell
+\cellx5100
+\fs20\pard\intbl\ql {-.2740533}\cell
+\cellx6300
+\fs20\pard\intbl\ql {-.1435291}\cell
+\row}
+
+
+{\b\qc\line Mean estimation                            Number of obs = 266 }{\par}
+{\trowd\trgaph108\trleft-108
+\row}
+{\trowd\trgaph108\trleft-108
+\cellx1500
+\fs20\pard\intbl\ql {Mean}\cell
+\cellx2700
+\fs20\pard\intbl\ql {Std.}\cell
+\cellx3900
+\fs20\pard\intbl\ql {err.}\cell
+\cellx5100
+\fs20\pard\intbl\ql {[95%}\cell
+\cellx6300
+\fs20\pard\intbl\ql {conf.}\cell
+\cellx7500
+\fs20\pard\intbl\ql {interval]}\cell
+\row}
+{\trowd\trgaph108\trleft-108
+\clbrdrt\brdrw10\brdrs \cellx1500
+\fs20\pard\intbl\ql {score_dette}\cell
+\clbrdrt\brdrw10\brdrs \cellx2700
+\fs20\pard\intbl\ql {.1729323}\cell
+\clbrdrt\brdrw10\brdrs \cellx3900
+\fs20\pard\intbl\ql {.043281}\cell
+\clbrdrt\brdrw10\brdrs \cellx5100
+\fs20\pard\intbl\ql {.0877139}\cell
+\clbrdrt\brdrw10\brdrs \cellx6300
+\fs20\pard\intbl\ql {.2581508}\cell
+\row}
+{\trowd\trgaph108\trleft-108
+\cellx1500
+\fs20\pard\intbl\ql {bscore_dette}\cell
+\cellx2700
+\fs20\pard\intbl\ql {.1146617}\cell
+\cellx3900
+\fs20\pard\intbl\ql {.0324558}\cell
+\cellx5100
+\fs20\pard\intbl\ql {.0507575}\cell
+\cellx6300
+\fs20\pard\intbl\ql {.1785658}\cell
+\row}
+
+
+{\b\qc\line Mean estimation                            Number of obs = 271 }{\par}
+{\trowd\trgaph108\trleft-108
+\row}
+{\trowd\trgaph108\trleft-108
+\cellx1500
+\fs20\pard\intbl\ql {Mean}\cell
+\cellx2700
+\fs20\pard\intbl\ql {Std.}\cell
+\cellx3900
+\fs20\pard\intbl\ql {err.}\cell
+\cellx5100
+\fs20\pard\intbl\ql {[95%}\cell
+\cellx6300
+\fs20\pard\intbl\ql {conf.}\cell
+\cellx7500
+\fs20\pard\intbl\ql {interval]}\cell
+\row}
+{\trowd\trgaph108\trleft-108
+\clbrdrt\brdrw10\brdrs \cellx1500
+\fs20\pard\intbl\ql {score_rev}\cell
+\clbrdrt\brdrw10\brdrs \cellx2700
+\fs20\pard\intbl\ql {.0221402}\cell
+\clbrdrt\brdrw10\brdrs \cellx3900
+\fs20\pard\intbl\ql {.0478979}\cell
+\clbrdrt\brdrw10\brdrs \cellx5100
+\fs20\pard\intbl\ql {-.0721606}\cell
+\clbrdrt\brdrw10\brdrs \cellx6300
+\fs20\pard\intbl\ql {.1164411}\cell
+\row}
+{\trowd\trgaph108\trleft-108
+\cellx1500
+\fs20\pard\intbl\ql {bscore_rev}\cell
+\cellx2700
+\fs20\pard\intbl\ql {-.0147601}\cell
+\cellx3900
+\fs20\pard\intbl\ql {.0313561}\cell
+\cellx5100
+\fs20\pard\intbl\ql {-.0764936}\cell
+\cellx6300
+\fs20\pard\intbl\ql {.0469733}\cell
+\row}
+
+
+{\b\qc\line Mean estimation                            Number of obs = 269 }{\par}
+{\trowd\trgaph108\trleft-108
+\row}
+{\trowd\trgaph108\trleft-108
+\cellx1500
+\fs20\pard\intbl\ql {Mean}\cell
+\cellx2700
+\fs20\pard\intbl\ql {Std.}\cell
+\cellx3900
+\fs20\pard\intbl\ql {err.}\cell
+\cellx5100
+\fs20\pard\intbl\ql {[95%}\cell
+\cellx6300
+\fs20\pard\intbl\ql {conf.}\cell
+\cellx7500
+\fs20\pard\intbl\ql {interval]}\cell
+\row}
+{\trowd\trgaph108\trleft-108
+\clbrdrt\brdrw10\brdrs \cellx1500
+\fs20\pard\intbl\ql {score_dep}\cell
+\clbrdrt\brdrw10\brdrs \cellx2700
+\fs20\pard\intbl\ql {.5092937}\cell
+\clbrdrt\brdrw10\brdrs \cellx3900
+\fs20\pard\intbl\ql {.0451908}\cell
+\clbrdrt\brdrw10\brdrs \cellx5100
+\fs20\pard\intbl\ql {.4203196}\cell
+\clbrdrt\brdrw10\brdrs \cellx6300
+\fs20\pard\intbl\ql {.5982678}\cell
+\row}
+{\trowd\trgaph108\trleft-108
+\cellx1500
+\fs20\pard\intbl\ql {bscore_dep}\cell
+\cellx2700
+\fs20\pard\intbl\ql {.4330855}\cell
+\cellx3900
+\fs20\pard\intbl\ql {.0333735}\cell
+\cellx5100
+\fs20\pard\intbl\ql {.3673779}\cell
+\cellx6300
+\fs20\pard\intbl\ql {.4987932}\cell
+\row}
+
+
+{\b\qc\line Mean estimation                                     Number of obs = 269 }{\par}
+{\trowd\trgaph108\trleft-108
+\row}
+{\trowd\trgaph108\trleft-108
+\cellx1500
+\fs20\pard\intbl\ql {Mean}\cell
+\cellx2700
+\fs20\pard\intbl\ql {Std.}\cell
+\cellx3900
+\fs20\pard\intbl\ql {err.}\cell
+\cellx5100
+\fs20\pard\intbl\ql {[95%}\cell
+\cellx6300
+\fs20\pard\intbl\ql {conf.}\cell
+\cellx7500
+\fs20\pard\intbl\ql {interval]}\cell
+\row}
+{\trowd\trgaph108\trleft-108
+\clbrdrt\brdrw10\brdrs \cellx1500
+\fs20\pard\intbl\ql {score_evolution_prix}\cell
+\clbrdrt\brdrw10\brdrs \cellx2700
+\fs20\pard\intbl\ql {.6022305}\cell
+\clbrdrt\brdrw10\brdrs \cellx3900
+\fs20\pard\intbl\ql {.0384243}\cell
+\clbrdrt\brdrw10\brdrs \cellx5100
+\fs20\pard\intbl\ql {.5265786}\cell
+\clbrdrt\brdrw10\brdrs \cellx6300
+\fs20\pard\intbl\ql {.6778824}\cell
+\row}
+{\trowd\trgaph108\trleft-108
+\cellx1500
+\fs20\pard\intbl\ql {bscore_evolution_prix}\cell
+\cellx2700
+\fs20\pard\intbl\ql {.4869888}\cell
+\cellx3900
+\fs20\pard\intbl\ql {.0297263}\cell
+\cellx5100
+\fs20\pard\intbl\ql {.428462}\cell
+\cellx6300
+\fs20\pard\intbl\ql {.5455157}\cell
+\row}
+
+
+{\b\qc\line Mean estimation                                 Number of obs = 266 }{\par}
+{\trowd\trgaph108\trleft-108
+\row}
+{\trowd\trgaph108\trleft-108
+\cellx1500
+\fs20\pard\intbl\ql {Mean}\cell
+\cellx2700
+\fs20\pard\intbl\ql {Std.}\cell
+\cellx3900
+\fs20\pard\intbl\ql {err.}\cell
+\cellx5100
+\fs20\pard\intbl\ql {[95%}\cell
+\cellx6300
+\fs20\pard\intbl\ql {conf.}\cell
+\cellx7500
+\fs20\pard\intbl\ql {interval]}\cell
+\row}
+{\trowd\trgaph108\trleft-108
+\clbrdrt\brdrw10\brdrs \cellx1500
+\fs20\pard\intbl\ql {bscore_Cherte_vie}\cell
+\clbrdrt\brdrw10\brdrs \cellx2700
+\fs20\pard\intbl\ql {.537594}\cell
+\clbrdrt\brdrw10\brdrs \cellx3900
+\fs20\pard\intbl\ql {.0317647}\cell
+\clbrdrt\brdrw10\brdrs \cellx5100
+\fs20\pard\intbl\ql {.4750507}\cell
+\clbrdrt\brdrw10\brdrs \cellx6300
+\fs20\pard\intbl\ql {.6001373}\cell
+\row}
+{\trowd\trgaph108\trleft-108
+\cellx1500
+\fs20\pard\intbl\ql {score_Cherte_vie}\cell
+\cellx2700
+\fs20\pard\intbl\ql {.6390977}\cell
+\cellx3900
+\fs20\pard\intbl\ql {.0428376}\cell
+\cellx5100
+\fs20\pard\intbl\ql {.5547524}\cell
+\cellx6300
+\fs20\pard\intbl\ql {.7234431}\cell
+\row}
+
+
+{\b\qc\line Mean estimation                                     Number of obs = 268 }{\par}
+{\trowd\trgaph108\trleft-108
+\row}
+{\trowd\trgaph108\trleft-108
+\cellx1500
+\fs20\pard\intbl\ql {Mean}\cell
+\cellx2700
+\fs20\pard\intbl\ql {Std.}\cell
+\cellx3900
+\fs20\pard\intbl\ql {err.}\cell
+\cellx5100
+\fs20\pard\intbl\ql {[95%}\cell
+\cellx6300
+\fs20\pard\intbl\ql {conf.}\cell
+\cellx7500
+\fs20\pard\intbl\ql {interval]}\cell
+\row}
+{\trowd\trgaph108\trleft-108
+\clbrdrt\brdrw10\brdrs \cellx1500
+\fs20\pard\intbl\ql {bscore_dynamique_prix}\cell
+\clbrdrt\brdrw10\brdrs \cellx2700
+\fs20\pard\intbl\ql {.5373134}\cell
+\clbrdrt\brdrw10\brdrs \cellx3900
+\fs20\pard\intbl\ql {.0277561}\cell
+\clbrdrt\brdrw10\brdrs \cellx5100
+\fs20\pard\intbl\ql {.4826647}\cell
+\clbrdrt\brdrw10\brdrs \cellx6300
+\fs20\pard\intbl\ql {.5919621}\cell
+\row}
+{\trowd\trgaph108\trleft-108
+\cellx1500
+\fs20\pard\intbl\ql {score_dynamique_prix}\cell
+\cellx2700
+\fs20\pard\intbl\ql {.6940299}\cell
+\cellx3900
+\fs20\pard\intbl\ql {.0340394}\cell
+\cellx5100
+\fs20\pard\intbl\ql {.6270101}\cell
+\cellx6300
+\fs20\pard\intbl\ql {.7610496}\cell
+\row}
+
+
+\writepositionforappend
+{\trowd\trgaph108\trleft-108

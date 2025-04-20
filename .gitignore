@@ -1,0 +1,55 @@
+# Fichiers CSV / TSV
+*.csv
+*.tsv
+
+# Fichiers Excel
+*.xls
+*.xlsx
+*.xlsm
+*.xlsb
+
+# Fichiers STATA
+*.dta
+
+# Fichiers SPSS
+*.sav
+*.zsav
+*.por
+
+# Fichiers SAS
+*.sas7bdat
+*.sas7bcat
+*.xpt
+
+# Fichiers R
+*.RData
+*.rda
+*.rds
+
+# Fichiers JSON, XML de données
+*.json
+*.xml
+
+# Fichiers SQLite ou autres bases locales
+*.sqlite
+*.db
+*.sqlite3
+
+# Fichiers NetCDF, HDF5
+*.nc
+*.h5
+*.hdf5
+
+# Autres formats fréquents
+*.feather
+*.parquet
+*.arrow
+*.avro
+
+# Fichiers compressés de données
+*.zip
+*.gz
+*.tar
+*.tar.gz
+*.7z
+*.rar
