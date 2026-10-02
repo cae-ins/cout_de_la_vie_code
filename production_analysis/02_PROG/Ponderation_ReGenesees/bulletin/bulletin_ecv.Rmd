@@ -1,0 +1,190 @@
+---
+title: "Perception du coût de la vie — Bulletin mensuel"
+subtitle: "`r libelle_mois(params$id2)`"
+author: "Agence Nationale de la Statistique (ANStat) — Cellule d'Analyses Économiques"
+output:
+  word_document:
+    reference_docx: modele_anstat.docx
+params:
+  id1: "2026-06"
+  id2: "2026-07"
+  methode: "ce"
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.width = 7.5, dpi = 200)
+library(dplyr); library(ggplot2)
+id1 <- params$id1; id2 <- params$id2; m1 <- libelle_mois(id1); m2 <- libelle_mois(id2)
+fich_var <- file.path(DIR_VARIATIONS, paste0("variations_", id1, "_", id2, ".csv"))
+var <- read.csv(fich_var, encoding = "UTF-8")
+soldes <- read.csv(chemin_mois(id2, paste0("soldes_", id2, ".csv")), encoding = "UTF-8")
+poids <- read.csv(chemin_mois(id2, paste0("poids_", id2, ".csv")), encoding = "UTF-8")
+rec <- readxl::read_excel(sub("\\.csv$", ".xlsx", fich_var), "recouvrement")
+fich_serie <- file.path(DIR_SERIE, "serie_soldes.csv")
+serie <- if (file.exists(fich_serie)) read.csv(fich_serie, encoding = "UTF-8") else NULL
+tab <- tableau_national(var, params$methode)
+ligne <- function(v) tab[tab$variable == v, ]
+
+# Verbe d'un mouvement significatif à 95 %, accordé avec le sujet, pour le titre et le chapô
+verbe <- function(niveau, type, variation, pluriel) {
+  v <- ifelse(type == "pression",
+              ifelse(variation > 0, "augmente", "diminue"),
+              ifelse(variation > 0, "s'améliore", "se dégrade"))
+  v <- ifelse(pluriel, sub("e$", "ent", v), v)
+  ifelse(niveau %in% c("signif", "net"), v, NA_character_)
+}
+mouvements <- tab %>%
+  mutate(verbe = verbe(niveau, type, variation, pluriel)) %>%
+  filter(!is.na(verbe), variable != "Cherte_vie") %>%
+  arrange(desc(abs(z_covariance)))
+cv <- ligne("Cherte_vie")
+debut_titre <- if (cv$niveau == "stable") {
+  sprintf("En %s, la perception de la cherté de la vie reste %s et stable", m2,
+          ifelse(cv$solde_2 > 0.3, "élevée", "modérée"))
+} else sprintf("En %s, la perception de la cherté de la vie est en %s", m2, cv$qualif)
+enumerer <- function(x) if (length(x) <= 1) x else paste(paste(head(x, -1), collapse = ", "), "et", tail(x, 1))
+suite_titre <- if (nrow(mouvements)) paste0(" ; ", enumerer(paste(mouvements$sujet, mouvements$verbe))) else ""
+titre <- paste0(debut_titre, suite_titre)
+substr(titre, 1, 1) <- toupper(substr(titre, 1, 1))
+```
+
+# `r titre`
+
+```{r chapo, results = "asis"}
+stables <- tab$nom_court[tab$niveau == "stable"]
+n_comparables <- sum(tab$niveau != "nc")
+cat(sprintf(
+  paste0("En %s, le solde d'opinion sur l'évolution du coût de la vie s'établit à %s points, contre %s en %s. ",
+         "Sur les %d soldes comparables à %s, %d n'évoluent pas de façon statistiquement significative (%s). "),
+  m2, pts(cv$solde_2), pts(cv$solde_1), m1, n_comparables, m1, length(stables), tolower(paste(stables, collapse = ", "))))
+if (nrow(mouvements)) cat(sprintf("En revanche, %s.", enumerer(paste(mouvements$sujet, mouvements$verbe,
+  sprintf("(%s %s)", pts(mouvements$variation), mot_points(mouvements$variation))))))
+legers <- tab %>% filter(niveau == "leger")
+de_article <- function(x) sub("^de les ", "des ", sub("^de le ", "du ", paste("de", x)))
+if (nrow(legers)) cat(sprintf(" L'évolution %s n'est significative qu'au seuil de 90 %%.",
+                              enumerer(de_article(legers$sujet))))
+nc <- tab %>% filter(niveau == "nc")
+if (nrow(nc)) cat(sprintf(paste0(" Enfin, l'évolution %s n'est pas interprétable : à la reprise de la collecte, ",
+                                 "ces questions portaient sur quatre mois au lieu de trois."),
+                          enumerer(de_article(nc$sujet))))
+cat("\n\nLes soldes sont exprimés en points. Une évolution n'est qualifiée de hausse ou de baisse que si elle est statistiquement significative (voir l'encadré « Lecture des évolutions »).\n")
+```
+
+```{r sections, results = "asis"}
+for (th in unique(THEMES$theme)) {
+  cat("\n## ", th, "\n\n", sep = "")
+  for (v in THEMES$variable[THEMES$theme == th]) {
+    l <- ligne(v)
+    cat("**", l$nom_court, " : ", l$qualif, "**\n\n", sep = "")
+    cat(phrase_solde(l, id1, id2), "\n\n")
+  }
+}
+```
+
+## Écarts entre catégories de ménages
+
+```{r ecarts, results = "asis"}
+e <- ecarts_groupes(soldes, params$methode) %>% filter(significatif)
+if (nrow(e) == 0) {
+  cat(sprintf("En %s, aucun écart statistiquement significatif n'apparaît entre milieux de résidence ni entre les quintiles extrêmes de niveau de vie.\n", m2))
+} else {
+  for (i in seq_len(nrow(e))) with(e[i, ], cat(sprintf(
+    "- %s : %s %s points pour les %s, contre %s pour les %s (écart significatif au seuil de 95 %%).\n",
+    nom_court, "solde de", pts(solde_a),
+    c(Urbain = "ménages urbains", Q1 = "ménages du premier quintile")[groupe_a],
+    pts(solde_b), c(Rural = "ménages ruraux", Q5 = "ménages du cinquième quintile")[groupe_b])))
+}
+cat("\nLes résultats détaillés par milieu et par quintile figurent en annexe. Les autres écarts ne sont pas significatifs et ne sont pas commentés.\n")
+```
+
+## Tableau 1 — Soldes d'opinion et évolutions (en points)
+
+```{r tableau1}
+t1 <- tab %>% transmute(
+  Solde = nom_court,
+  !!m1 := pts(solde_1), !!m2 := pts(solde_2),
+  `Marge (95 %)` = paste0("± ", pts(marge95, FALSE)),
+  `Évol.` = pts(variation),
+  `Lecture` = qualif)
+knitr::kable(t1, align = c("l", rep("r", 4), "l"))
+```
+
+*Source : ANStat-CAE, Enquête Cherté de la Vie (ECV) ; pondération calée sur les projections de population 2026. Lecture : la variation est qualifiée de « stabilité » lorsqu'elle n'est pas statistiquement significative au seuil de 90 %.*
+
+```{r graphique_serie, fig.height = 8, eval = !is.null(serie), fig.cap = sprintf("Graphique 1 — Soldes d'opinion de février 2025 à %s, avec intervalle de confiance à 95 %%. Zone grisée : pas de collecte de décembre 2025 à avril 2026 ; mai 2026 manquant. Point creux : période de référence de quatre mois.", m2)}
+graphique_serie(serie, params$methode)
+```
+
+```{r graphique, eval = is.null(serie), fig.height = 5.5, fig.cap = sprintf("Graphique 1 — Soldes d'opinion en %s et %s, avec intervalle de confiance à 95 %%", m1, m2)}
+g <- bind_rows(
+  tab %>% transmute(nom_court, type, mois = m1, solde = solde_1, se = se_1),
+  tab %>% transmute(nom_court, type, mois = m2, solde = solde_2, se = se_2)) %>%
+  mutate(mois = factor(mois, c(m1, m2)), nom_court = factor(nom_court, rev(tab$nom_court)))
+ggplot(g, aes(x = 100 * solde, y = nom_court, colour = mois)) +
+  geom_vline(xintercept = 0, colour = "grey40") +
+  geom_errorbarh(aes(xmin = 100 * (solde - 1.96 * se), xmax = 100 * (solde + 1.96 * se)),
+                 height = 0.25, position = position_dodge(width = 0.5)) +
+  geom_point(size = 2.2, position = position_dodge(width = 0.5)) +
+  scale_colour_manual(values = c("#9aa9bc", "#c0392b")) +
+  labs(x = "Solde d'opinion (points)", y = NULL, colour = NULL) +
+  theme_minimal(base_size = 10) + theme(legend.position = "top")
+```
+
+## Encadré — Lecture des évolutions
+
+Chaque solde est estimé sur un échantillon et comporte donc une marge d'erreur. Pour chaque évolution, on compare la variation à son erreur type, calculée en tenant compte des ménages et des grappes interrogés les deux mois (méthode de Berger et Priam, `svyDelta`). La variation est qualifiée de :
+
+- **stabilité** si elle n'est pas significative au seuil de 90 % ;
+- **légère hausse / baisse** (ou amélioration / dégradation) si elle est significative à 90 % mais pas à 95 % ;
+- **hausse / baisse** si elle est significative à 95 % ;
+- **nette hausse / baisse** si elle est significative à 99,9 %.
+- **non comparable** lorsque la question ne porte pas sur la même période de référence les deux mois : à la reprise de la collecte (mai et juin 2026), les questions sur les « trois derniers mois » (dette, situation économique du pays, prix sur trois mois) couvraient quatre mois.
+
+Pour les soldes de « pression » (coût de la vie, prix, dépenses, endettement), une hausse traduit une tension accrue sur les ménages. Pour les soldes de « situation » (situation financière, revenu futur, situation du pays), une hausse traduit une amélioration.
+
+## Encadré — Information de collecte
+
+```{r collecte, results = "asis"}
+n_tir <- nrow(poids); n_rep <- sum(poids$repondant)
+cat(sprintf(paste0(
+  "Pour le mois de %s, %s ménages ont été appelés et %s ont répondu, soit un taux de réponse de %s %%. ",
+  "%s des répondants avaient déjà été interrogés le mois précédent. Les dates de collecte sont : [à compléter]."),
+  m2, format(n_tir, big.mark = " "), format(n_rep, big.mark = " "),
+  formatC(100 * n_rep / n_tir, format = "f", digits = 1, decimal.mark = ","),
+  format(rec$communs[grepl("^Ménages r", rec$niveau)], big.mark = " ")))
+```
+
+## Révisions
+
+```{r revisions, results = "asis"}
+pub <- PUBLIE[[id2]]
+if (!is.null(pub)) {
+  r <- tab %>% transmute(Solde = nom_court,
+                         `Publié (ancienne pondération)` = pts(pub[variable]),
+                         `Nouvelle pondération` = pts(solde_2))
+  cat(sprintf("Les soldes de %s sont recalculés avec la nouvelle pondération (correction de la non-réponse par score de propension et calage sur les projections de population 2026). Ils diffèrent des valeurs publiées auparavant :\n\n", m2))
+  print(knitr::kable(r, align = c("l", "r", "r")))
+} else cat("Les soldes du mois précédent ne sont pas révisés.\n")
+```
+
+## Pour en savoir plus
+
+L'Enquête Cherté de la Vie interroge chaque mois par téléphone un sous-échantillon des ménages de l'EHCVM 2021, selon un panel rotatif (trois mois d'interrogation, neuf mois de repos, puis trois mois). Les poids corrigent la non-réponse à l'aide d'un score de propension estimé sur les caractéristiques des ménages connues pour tous (niveau de vie, taille, milieu, zone, caractéristiques du chef de ménage), puis sont calés sur la population projetée en 2026 par région, par zone et milieu, et par quintile de niveau de vie.
+
+Le solde d'opinion est calculé selon la méthode de la Commission européenne : +1 pour une forte hausse (ou nette amélioration), +0,5 pour une légère hausse, 0 pour la stabilité, −0,5 et −1 pour les baisses ; les réponses « ne sait pas » sont exclues. Il est exprimé en points (−100 à +100).
+
+# Annexe — Soldes par catégorie de ménages, `r m2` (en points, marge d'erreur à 95 %)
+
+```{r annexe}
+a <- soldes %>% filter(methode == params$methode) %>%
+  inner_join(THEMES %>% select(variable, nom_court), by = "variable") %>%
+  mutate(valeur = paste0(pts(solde), " (± ", pts(1.96 * erreur_type, FALSE), ")"),
+         col = ifelse(domaine == "Ensemble", "Ensemble", modalite)) %>%
+  select(nom_court, col, valeur) %>%
+  tidyr::pivot_wider(names_from = col, values_from = valeur) %>%
+  arrange(match(nom_court, THEMES$nom_court)) %>%
+  select(Solde = nom_court, Ensemble, Urbain, Rural, Q1, Q2, Q3, Q4, Q5)
+knitr::kable(a)
+```
+
+*Les marges d'erreur des catégories sont plus larges que celle de l'ensemble : les écarts entre catégories ne sont commentés que lorsqu'ils sont statistiquement significatifs.*
