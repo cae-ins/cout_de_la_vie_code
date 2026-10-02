@@ -173,7 +173,7 @@ ajouter_message <- function(doc, txt) {
 }
 
 # Garde la page de garde du modèle, met le mois à jour, supprime le corps
-preparer_modele <- function(fichier_modele, mois_modele, mois_nouveau) {
+preparer_modele <- function(fichier_modele, mois_modele, mois_nouveau, marqueur = "RESUME EXECUTIF") {
   doc <- read_docx(fichier_modele)
   doc <- body_replace_all_text(doc, mois_modele, mois_nouveau, fixed = TRUE)
   enfants <- xml2::xml_children(xml2::xml_find_first(docx_body_xml(doc), "w:body"))
@@ -183,11 +183,11 @@ preparer_modele <- function(fichier_modele, mois_modele, mois_nouveau) {
     if (inherits(n, "xml_missing")) NULL else as.character(n)
   })
   NUMEROTATION_TITRES <<- num
-  debut <- which(xml2::xml_text(enfants) == "RESUME EXECUTIF")[1]
-  if (is.na(debut)) stop("« RESUME EXECUTIF » introuvable dans le modèle ANStat.")
+  debut <- which(trimws(xml2::xml_text(enfants)) == marqueur)[1]
+  if (is.na(debut)) stop("« ", marqueur, " » introuvable dans le modèle ANStat.")
   n_a_supprimer <- length(enfants) - debut          # le dernier enfant est w:sectPr, conservé
   # body_remove supprime l'élément sous le curseur et garde le curseur synchronisé
-  doc <- cursor_reach(doc, "^RESUME EXECUTIF$")
+  doc <- cursor_reach(doc, paste0("^[[:space:]]*", marqueur, "[[:space:]]*$"))
   for (i in seq_len(n_a_supprimer)) doc <- body_remove(doc)
   cursor_end(doc)
 }
